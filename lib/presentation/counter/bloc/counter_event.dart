@@ -7,13 +7,12 @@ abstract class CounterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CounterIncrementPressed extends CounterEvent {}
-
-class CounterDecreasePressed extends CounterEvent {
-  const CounterDecreasePressed({
-    required this.decreaseValue
+class CounterPressed extends CounterEvent {
+  const CounterPressed({
+    this.counterValue,
+    this.counterType,
   });
-  final int decreaseValue;
-}
 
-class CounterResetPressed extends CounterEvent {}
+  final int? counterValue;
+  final Counter? counterType;
+}
