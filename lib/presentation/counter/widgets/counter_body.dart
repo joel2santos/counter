@@ -1,3 +1,4 @@
+import 'package:counter/domain/enum/counter.dart';
 import 'package:counter/presentation/counter/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,15 +42,23 @@ class CounterButtons extends StatelessWidget {
       children: [
         // Increase
         CustomCounterButton(
-            onPressed: () =>
-                context.read<CounterBloc>().add(CounterIncrementPressed()),
+            onPressed: () => context.read<CounterBloc>().add(
+                  const CounterPressed(
+                    counterType: Counter.increment,
+                    counterValue: decreaseValue,
+                  ),
+                ),
             icon: Icons.add),
         const SizedBox(height: 16),
 
         // Decrease
         CustomCounterButton(
             onPressed: () => context.read<CounterBloc>().add(
-                const CounterDecreasePressed(decreaseValue: decreaseValue)),
+                  const CounterPressed(
+                    counterType: Counter.decrease,
+                    counterValue: decreaseValue,
+                  ),
+                ),
             icon: Icons.remove),
       ],
     );
