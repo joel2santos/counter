@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:counter/domain/enum/counter.dart';
 import 'package:equatable/equatable.dart';
 
 part 'counter_event.dart';
@@ -6,45 +7,22 @@ part 'counter_state.dart';
 
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
   CounterBloc() : super(const CounterState()) {
-    on<CounterIncrementPressed>(_onIncrementPressed);
-    on<CounterDecreasePressed>(_onDecreasePressed);
-    on<CounterResetPressed>(_onResetPressed);
+    on<CounterPressed>(_counterPressed);
   }
 
-  void _onIncrementPressed(
-    CounterIncrementPressed event,
+  void _counterPressed(
+    CounterPressed event,
     Emitter<CounterState> emit,
   ) {
-    final counter = state.counter;
-    emit(
-      state.copyWith(
-        counter: counter + 1
-      )
-    );
-  }
+    final Counter counterType = event.counterType ?? state.counterType;
+    final int counterValue = event.counterValue ?? 0;
 
-  void _onDecreasePressed(
-    CounterDecreasePressed event,
-    Emitter<CounterState> emit,
-  ) {
-    final counter = state.counter;
-    final decreaseValue = event.decreaseValue;
-
-    emit(
-      state.copyWith(
-        counter: counter - decreaseValue,
-      )
-    );
-  }
-
-  void _onResetPressed(
-    CounterResetPressed event,
-    Emitter<CounterState> emit,
-  ) { 
-    emit(
-      state.copyWith(
-        counter: 0
-      )
-    );
+    if (counterType.isIncrement) {
+      emit(state.copyWith(counter: state.counter + counterValue));
+    } else if (counterType.isDecrease) {
+      emit(state.copyWith(counter: state.counter - counterValue));
+    } else if (counterType.isReset) {
+      emit(state.copyWith(counter: 0));
+    }
   }
 }

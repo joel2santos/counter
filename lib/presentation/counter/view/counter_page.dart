@@ -1,3 +1,4 @@
+import 'package:counter/domain/enum/counter.dart';
 import 'package:counter/presentation/counter/bloc/counter_bloc.dart';
 import 'package:counter/presentation/counter/widgets/counter_body.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,9 @@ class CounterPage extends StatelessWidget {
             appBar: AppBar(title: const Text('Counter with Bloc!'), actions: [
               IconButton(
                 icon: const Icon(Icons.refresh_rounded),
-                onPressed: () =>
-                    context.read<CounterBloc>().add(CounterResetPressed()),
+                onPressed: () => context
+                    .read<CounterBloc>()
+                    .add(const CounterPressed(counterType: Counter.reset)),
               ),
             ]),
             body: const CounterView(),
