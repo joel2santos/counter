@@ -11,12 +11,6 @@ class CounterBody extends StatelessWidget {
       buildWhen: (previous, current) => previous.counter != current.counter,
       builder: (context, state) {
         return Scaffold(
-            appBar: AppBar(title: const Text('Counter with Bloc!'), actions: [
-              IconButton(
-                  icon: const Icon(Icons.refresh_rounded),
-                  onPressed: () =>
-                      context.read<CounterBloc>().add(CounterResetPressed())),
-            ]),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -10,11 +10,23 @@ class CounterPage extends StatelessWidget {
   @override
   // Providers
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocProvider(
+    return BlocProvider(
       create: (context) => CounterBloc(),
-      child: const CounterView(),
-    ));
+      child: BlocBuilder<CounterBloc, CounterState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Counter with Bloc!'), actions: [
+              IconButton(
+                icon: const Icon(Icons.refresh_rounded),
+                onPressed: () =>
+                    context.read<CounterBloc>().add(CounterResetPressed()),
+              ),
+            ]),
+            body: const CounterView(),
+          );
+        },
+      ),
+    );
   }
 }
 
